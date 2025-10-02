@@ -1,6 +1,7 @@
 const express = require('express')
 const connection = require('./connection/connection')
 const { postCompany, getCompany, deleteCompany, updateCompany } = require('./controllers/companyController')
+const { singIn, singUp } = require('./controllers/authController')
 const app = express()
 const port = 3000
 
@@ -20,7 +21,11 @@ app.patch("/update/:id" , updateCompany)
 // DELETE : delete company data 
 app.delete("/delete/:id" , deleteCompany)
 
+// POST : Create User 
+app.post("/create_user", singUp)
 
+// POST : Login 
+app.post("/login" ,singIn )
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
