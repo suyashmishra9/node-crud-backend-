@@ -1,6 +1,6 @@
 const express = require('express')
 const connection = require('./connection/connection')
-const { postCompany, getCompany, deleteCompany, updateCompany } = require('./controllers/companyController')
+const { postCompany, getCompany, deleteCompany, updateCompany, showLikeandDislike } = require('./controllers/companyController')
 const { singIn, singUp } = require('./controllers/authController')
 const { checkToken } = require('./middleware/verifyToken')
 const app = express()
@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // GET :  company data 
-app.get('/', checkToken, getCompany)
+app.get('/', getCompany)
 
 // POST : create company data  
 app.post("/create", postCompany)
@@ -27,6 +27,11 @@ app.post("/create_user", singUp)
 
 // POST : Login 
 app.post("/login", singIn)
+
+// POST : 
+app.post("/showLikeandDislike", showLikeandDislike)
+
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })

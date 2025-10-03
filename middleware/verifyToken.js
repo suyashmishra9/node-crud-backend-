@@ -13,6 +13,5 @@ const checkToken = (req, res, next) => {
         return res.status(401).json({ message: "Token Not Found" })
 
     }
-
 }
 module.exports = { checkToken }

@@ -56,4 +56,29 @@ const deleteCompany = async (req, res) => {
         res.status(500).json({ message: "Delete error", error: error.meesage })
     }
 }
-module.exports = { getCompany, postCompany, deleteCompany, updateCompany }
+
+const showLikeandDislike = async (req, res) => {
+    const { id, status } = req.query
+    console.log(id, status)
+    try {
+        const data = await companySchema.findById(id)
+        console.log(data)
+        if (data) {
+            if (status === "like") {
+                data.like++
+                await data.save()
+                return res.status(200).json({ message: "Liked updated successfully" })
+            }
+            else if (status === "dislike") {
+                data.dislike--
+                return res.status(200).json({ message: "Dislike updated successfully" })
+            }
+        }
+
+
+    } catch (error) {
+        res.status(500).json({ message: "error", error: error.meesage })
+
+    }
+}
+module.exports = { getCompany, postCompany, deleteCompany, updateCompany, showLikeandDislike }
